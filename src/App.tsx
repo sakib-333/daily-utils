@@ -3,6 +3,7 @@ import HeroSection from "./components/hero-section"
 import FeaturedUtilities from "./components/featured-utilities"
 import ServicesGrid from "./components/services-grid"
 import BuildPrecision from "./components/build-precision"
+import Footer from "./components/footer"
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <ServicesGrid />
         <BuildPrecision />
       </main>
+      <Footer />
     </div>
   )
 }
