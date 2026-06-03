@@ -4,11 +4,12 @@ import { Menu, Moon, Search, Sun, Terminal, X } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { Link } from "@tanstack/react-router"
 
 const navItems = [
-    { label: "Services", href: "#services" },
-    { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
+    { label: "Services", href: "/services" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
 ]
 
 const Navbar = () => {
@@ -25,24 +26,27 @@ const Navbar = () => {
     return (
         <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/85 shadow-sm backdrop-blur-md">
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-12">
-                <a
-                    href="#"
+                <Link
+                    to="/"
                     className="flex min-w-0 items-center gap-2 text-xl font-bold text-primary sm:text-2xl"
                     aria-label="Daily Utils home"
                 >
                     <Terminal className="size-6 shrink-0" aria-hidden="true" />
                     <span className="truncate">Daily Utils</span>
-                </a>
+                </Link>
 
                 <nav className="hidden h-full items-center gap-8 md:flex" aria-label="Main navigation">
                     {navItems.map((item) => (
-                        <a
+                        <Link
                             key={item.label}
-                            href={item.href}
+                            to={item.href}
                             className="flex h-full items-center text-sm font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:text-primary active:opacity-80"
+                            activeProps={{
+                                className: "text-primary"
+                            }}
                         >
                             {item.label}
-                        </a>
+                        </Link>
                     ))}
                 </nav>
 
@@ -107,14 +111,17 @@ const Navbar = () => {
 
                 <nav className="flex flex-col" aria-label="Mobile navigation">
                     {navItems.map((item) => (
-                        <a
+                        <Link
                             key={item.label}
-                            href={item.href}
+                            to={item.href}
                             className="rounded-md px-2 py-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
                             onClick={() => setIsMenuOpen(false)}
+                            activeProps={{
+                                className: "text-primary"
+                            }}
                         >
                             {item.label}
-                        </a>
+                        </Link>
                     ))}
                 </nav>
             </div>
