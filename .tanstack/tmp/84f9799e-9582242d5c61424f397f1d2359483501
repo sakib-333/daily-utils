@@ -17,6 +17,7 @@ import { Route as StopwatchRouteImport } from './routes/stopwatch'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as QrGeneratorRouteImport } from './routes/qr-generator'
 import { Route as PasswordGeneratorRouteImport } from './routes/password-generator'
+import { Route as MathToolsRouteImport } from './routes/math-tools'
 import { Route as MarkdownPreviewerRouteImport } from './routes/markdown-previewer'
 import { Route as JsonFormaterRouteImport } from './routes/json-formater'
 import { Route as ImageResizerRouteImport } from './routes/image-resizer'
@@ -65,6 +66,11 @@ const QrGeneratorRoute = QrGeneratorRouteImport.update({
 const PasswordGeneratorRoute = PasswordGeneratorRouteImport.update({
   id: '/password-generator',
   path: '/password-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MathToolsRoute = MathToolsRouteImport.update({
+  id: '/math-tools',
+  path: '/math-tools',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MarkdownPreviewerRoute = MarkdownPreviewerRouteImport.update({
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/image-resizer': typeof ImageResizerRoute
   '/json-formater': typeof JsonFormaterRoute
   '/markdown-previewer': typeof MarkdownPreviewerRoute
+  '/math-tools': typeof MathToolsRoute
   '/password-generator': typeof PasswordGeneratorRoute
   '/qr-generator': typeof QrGeneratorRoute
   '/services': typeof ServicesRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/image-resizer': typeof ImageResizerRoute
   '/json-formater': typeof JsonFormaterRoute
   '/markdown-previewer': typeof MarkdownPreviewerRoute
+  '/math-tools': typeof MathToolsRoute
   '/password-generator': typeof PasswordGeneratorRoute
   '/qr-generator': typeof QrGeneratorRoute
   '/services': typeof ServicesRoute
@@ -162,6 +170,7 @@ export interface FileRoutesById {
   '/image-resizer': typeof ImageResizerRoute
   '/json-formater': typeof JsonFormaterRoute
   '/markdown-previewer': typeof MarkdownPreviewerRoute
+  '/math-tools': typeof MathToolsRoute
   '/password-generator': typeof PasswordGeneratorRoute
   '/qr-generator': typeof QrGeneratorRoute
   '/services': typeof ServicesRoute
@@ -183,6 +192,7 @@ export interface FileRouteTypes {
     | '/image-resizer'
     | '/json-formater'
     | '/markdown-previewer'
+    | '/math-tools'
     | '/password-generator'
     | '/qr-generator'
     | '/services'
@@ -202,6 +212,7 @@ export interface FileRouteTypes {
     | '/image-resizer'
     | '/json-formater'
     | '/markdown-previewer'
+    | '/math-tools'
     | '/password-generator'
     | '/qr-generator'
     | '/services'
@@ -221,6 +232,7 @@ export interface FileRouteTypes {
     | '/image-resizer'
     | '/json-formater'
     | '/markdown-previewer'
+    | '/math-tools'
     | '/password-generator'
     | '/qr-generator'
     | '/services'
@@ -241,6 +253,7 @@ export interface RootRouteChildren {
   ImageResizerRoute: typeof ImageResizerRoute
   JsonFormaterRoute: typeof JsonFormaterRoute
   MarkdownPreviewerRoute: typeof MarkdownPreviewerRoute
+  MathToolsRoute: typeof MathToolsRoute
   PasswordGeneratorRoute: typeof PasswordGeneratorRoute
   QrGeneratorRoute: typeof QrGeneratorRoute
   ServicesRoute: typeof ServicesRoute
@@ -307,6 +320,13 @@ declare module '@tanstack/react-router' {
       path: '/password-generator'
       fullPath: '/password-generator'
       preLoaderRoute: typeof PasswordGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/math-tools': {
+      id: '/math-tools'
+      path: '/math-tools'
+      fullPath: '/math-tools'
+      preLoaderRoute: typeof MathToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/markdown-previewer': {
@@ -385,6 +405,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImageResizerRoute: ImageResizerRoute,
   JsonFormaterRoute: JsonFormaterRoute,
   MarkdownPreviewerRoute: MarkdownPreviewerRoute,
+  MathToolsRoute: MathToolsRoute,
   PasswordGeneratorRoute: PasswordGeneratorRoute,
   QrGeneratorRoute: QrGeneratorRoute,
   ServicesRoute: ServicesRoute,
