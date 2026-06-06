@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UuidGeneratorRouteImport } from './routes/uuid-generator'
 import { Route as UrlEncoderRouteImport } from './routes/url-encoder'
+import { Route as UnitConverterRouteImport } from './routes/unit-converter'
 import { Route as TextCaseConverterRouteImport } from './routes/text-case-converter'
 import { Route as StopwatchRouteImport } from './routes/stopwatch'
 import { Route as ServicesRouteImport } from './routes/services'
@@ -34,6 +35,11 @@ const UuidGeneratorRoute = UuidGeneratorRouteImport.update({
 const UrlEncoderRoute = UrlEncoderRouteImport.update({
   id: '/url-encoder',
   path: '/url-encoder',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UnitConverterRoute = UnitConverterRouteImport.update({
+  id: '/unit-converter',
+  path: '/unit-converter',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TextCaseConverterRoute = TextCaseConverterRouteImport.update({
@@ -122,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/stopwatch': typeof StopwatchRoute
   '/text-case-converter': typeof TextCaseConverterRoute
+  '/unit-converter': typeof UnitConverterRoute
   '/url-encoder': typeof UrlEncoderRoute
   '/uuid-generator': typeof UuidGeneratorRoute
 }
@@ -140,6 +147,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/stopwatch': typeof StopwatchRoute
   '/text-case-converter': typeof TextCaseConverterRoute
+  '/unit-converter': typeof UnitConverterRoute
   '/url-encoder': typeof UrlEncoderRoute
   '/uuid-generator': typeof UuidGeneratorRoute
 }
@@ -159,6 +167,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/stopwatch': typeof StopwatchRoute
   '/text-case-converter': typeof TextCaseConverterRoute
+  '/unit-converter': typeof UnitConverterRoute
   '/url-encoder': typeof UrlEncoderRoute
   '/uuid-generator': typeof UuidGeneratorRoute
 }
@@ -179,6 +188,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/stopwatch'
     | '/text-case-converter'
+    | '/unit-converter'
     | '/url-encoder'
     | '/uuid-generator'
   fileRoutesByTo: FileRoutesByTo
@@ -197,6 +207,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/stopwatch'
     | '/text-case-converter'
+    | '/unit-converter'
     | '/url-encoder'
     | '/uuid-generator'
   id:
@@ -215,6 +226,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/stopwatch'
     | '/text-case-converter'
+    | '/unit-converter'
     | '/url-encoder'
     | '/uuid-generator'
   fileRoutesById: FileRoutesById
@@ -234,6 +246,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   StopwatchRoute: typeof StopwatchRoute
   TextCaseConverterRoute: typeof TextCaseConverterRoute
+  UnitConverterRoute: typeof UnitConverterRoute
   UrlEncoderRoute: typeof UrlEncoderRoute
   UuidGeneratorRoute: typeof UuidGeneratorRoute
 }
@@ -252,6 +265,13 @@ declare module '@tanstack/react-router' {
       path: '/url-encoder'
       fullPath: '/url-encoder'
       preLoaderRoute: typeof UrlEncoderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/unit-converter': {
+      id: '/unit-converter'
+      path: '/unit-converter'
+      fullPath: '/unit-converter'
+      preLoaderRoute: typeof UnitConverterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/text-case-converter': {
@@ -370,6 +390,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   StopwatchRoute: StopwatchRoute,
   TextCaseConverterRoute: TextCaseConverterRoute,
+  UnitConverterRoute: UnitConverterRoute,
   UrlEncoderRoute: UrlEncoderRoute,
   UuidGeneratorRoute: UuidGeneratorRoute,
 }
