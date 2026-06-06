@@ -21,6 +21,7 @@ import { Route as JsonFormaterRouteImport } from './routes/json-formater'
 import { Route as ImageResizerRouteImport } from './routes/image-resizer'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ColorPickerRouteImport } from './routes/color-picker'
+import { Route as Base64ConverterRouteImport } from './routes/base64-converter'
 import { Route as AgeCalculatorRouteImport } from './routes/age-calculator'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -85,6 +86,11 @@ const ColorPickerRoute = ColorPickerRouteImport.update({
   path: '/color-picker',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Base64ConverterRoute = Base64ConverterRouteImport.update({
+  id: '/base64-converter',
+  path: '/base64-converter',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AgeCalculatorRoute = AgeCalculatorRouteImport.update({
   id: '/age-calculator',
   path: '/age-calculator',
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/age-calculator': typeof AgeCalculatorRoute
+  '/base64-converter': typeof Base64ConverterRoute
   '/color-picker': typeof ColorPickerRoute
   '/contact': typeof ContactRoute
   '/image-resizer': typeof ImageResizerRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/age-calculator': typeof AgeCalculatorRoute
+  '/base64-converter': typeof Base64ConverterRoute
   '/color-picker': typeof ColorPickerRoute
   '/contact': typeof ContactRoute
   '/image-resizer': typeof ImageResizerRoute
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/age-calculator': typeof AgeCalculatorRoute
+  '/base64-converter': typeof Base64ConverterRoute
   '/color-picker': typeof ColorPickerRoute
   '/contact': typeof ContactRoute
   '/image-resizer': typeof ImageResizerRoute
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/age-calculator'
+    | '/base64-converter'
     | '/color-picker'
     | '/contact'
     | '/image-resizer'
@@ -176,6 +186,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/age-calculator'
+    | '/base64-converter'
     | '/color-picker'
     | '/contact'
     | '/image-resizer'
@@ -193,6 +204,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/age-calculator'
+    | '/base64-converter'
     | '/color-picker'
     | '/contact'
     | '/image-resizer'
@@ -211,6 +223,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AgeCalculatorRoute: typeof AgeCalculatorRoute
+  Base64ConverterRoute: typeof Base64ConverterRoute
   ColorPickerRoute: typeof ColorPickerRoute
   ContactRoute: typeof ContactRoute
   ImageResizerRoute: typeof ImageResizerRoute
@@ -311,6 +324,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ColorPickerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/base64-converter': {
+      id: '/base64-converter'
+      path: '/base64-converter'
+      fullPath: '/base64-converter'
+      preLoaderRoute: typeof Base64ConverterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/age-calculator': {
       id: '/age-calculator'
       path: '/age-calculator'
@@ -339,6 +359,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AgeCalculatorRoute: AgeCalculatorRoute,
+  Base64ConverterRoute: Base64ConverterRoute,
   ColorPickerRoute: ColorPickerRoute,
   ContactRoute: ContactRoute,
   ImageResizerRoute: ImageResizerRoute,
