@@ -1,5 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
@@ -23,6 +25,7 @@ if (!rootElement.innerHTML) {
     root.render(
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
             <RouterProvider router={router} />
+            <ToastContainer position='top-center' />
         </ThemeProvider>
     )
 }

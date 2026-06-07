@@ -1,3 +1,5 @@
+import { useState, type FormEvent } from 'react'
+import emailjs from '@emailjs/browser'
 import {
   ArrowRight,
   CheckCircle2,
@@ -12,6 +14,25 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { toast } from 'react-toastify'
+
+type ContactForm = {
+  name: string
+  email: string
+  topic: string
+  message: string
+}
+
+const initialContactForm: ContactForm = {
+  name: '',
+  email: '',
+  topic: '',
+  message: '',
+}
+
+const emailServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+const emailTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+const emailPublicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
 const contactOptions = [
   {
@@ -52,6 +73,56 @@ export const Route = createFileRoute('/contact')({
 })
 
 function RouteComponent() {
+  const [formData, setFormData] = useState<ContactForm>(initialContactForm)
+  const [isSending, setIsSending] = useState(false)
+
+  const updateField = (field: keyof ContactForm, value: string) => {
+    setFormData((currentFormData) => ({
+      ...currentFormData,
+      [field]: value,
+    }))
+  }
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    if (!emailServiceId || !emailTemplateId || !emailPublicKey) {
+      toast.error('Email service is not configured yet.')
+      return
+    }
+
+    if (!formData.name.trim() || !formData.email.trim() || !formData.topic || !formData.message.trim()) {
+      toast.error('Please complete all fields before sending.')
+      return
+    }
+
+    setIsSending(true)
+
+    try {
+      await emailjs.send(
+        emailServiceId,
+        emailTemplateId,
+        {
+          from_name: formData.name.trim(),
+          from_email: formData.email.trim(),
+          reply_to: formData.email.trim(),
+          topic: formData.topic,
+          message: formData.message.trim(),
+        },
+        {
+          publicKey: emailPublicKey,
+        },
+      )
+
+      toast.success('Message sent successfully. We will get back to you soon.')
+      setFormData(initialContactForm)
+    } catch {
+      toast.error('Message could not be sent. Please try again later.')
+    } finally {
+      setIsSending(false)
+    }
+  }
+
   return (
     <section className="px-4 py-10 sm:px-6 lg:px-12">
       <nav aria-label="Breadcrumb" className="mb-5 flex items-center gap-2 overflow-x-auto whitespace-nowrap">
@@ -146,7 +217,7 @@ function RouteComponent() {
             <Mail className="size-5 shrink-0 text-primary" aria-hidden="true" />
           </div>
 
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={(event) => void handleSubmit(event)}>
             <div>
               <label htmlFor="contact-name" className="mb-2 block text-xs font-semibold text-foreground">
                 Name
@@ -156,6 +227,9 @@ function RouteComponent() {
                 type="text"
                 className="h-10 w-full rounded-md border border-border bg-background px-3 text-sm text-foreground outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15"
                 placeholder="Your name"
+                value={formData.name}
+                onChange={(event) => updateField('name', event.target.value)}
+                disabled={isSending}
               />
             </div>
 
@@ -168,6 +242,9 @@ function RouteComponent() {
                 type="email"
                 className="h-10 w-full rounded-md border border-border bg-background px-3 text-sm text-foreground outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15"
                 placeholder="you@example.com"
+                value={formData.email}
+                onChange={(event) => updateField('email', event.target.value)}
+                disabled={isSending}
               />
             </div>
 
@@ -178,7 +255,9 @@ function RouteComponent() {
               <select
                 id="contact-topic"
                 className="h-10 w-full rounded-md border border-border bg-background px-3 text-sm text-foreground outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15"
-                defaultValue=""
+                value={formData.topic}
+                onChange={(event) => updateField('topic', event.target.value)}
+                disabled={isSending}
               >
                 <option value="" disabled>
                   Select a topic
@@ -198,17 +277,20 @@ function RouteComponent() {
                 id="contact-message"
                 className="min-h-32 w-full resize-none rounded-md border border-border bg-background p-3 text-sm leading-6 text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/15"
                 placeholder="Tell us what you need help with..."
+                value={formData.message}
+                onChange={(event) => updateField('message', event.target.value)}
+                disabled={isSending}
               />
             </div>
 
-            <Button type="button" className="w-full gap-1.5 font-bold">
+            <Button type="submit" className="w-full gap-1.5 font-bold" disabled={isSending}>
               <Mail className="size-4" aria-hidden="true" />
-              Send Message
+              {isSending ? 'Sending...' : 'Send Message'}
             </Button>
           </form>
 
           <p className="mt-4 text-xs leading-5 text-muted-foreground">
-            This page is ready for a form handler. Until then, use the email links for direct contact.
+            Your message is sent securely through EmailJS. You can also use the email links for direct contact.
           </p>
         </aside>
       </div>
