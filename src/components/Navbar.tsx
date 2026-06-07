@@ -31,7 +31,7 @@ const Navbar = () => {
                     className="flex min-w-0 items-center gap-2 text-xl font-bold text-primary sm:text-2xl"
                     aria-label="Daily Utils home"
                 >
-                    <Terminal className="size-6 shrink-0" aria-hidden="true" />
+                    <Terminal className="size-6 shrink-0 border-2 border-primary" aria-hidden="true" />
                     <span className="truncate">Daily Utils</span>
                 </Link>
 
