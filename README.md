@@ -1,75 +1,110 @@
-# React + TypeScript + Vite
+# Daily Utils
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Daily Utils is a React and TypeScript web app that provides free, browser-based utilities for everyday tasks. It includes developer tools, converters, calculators, text helpers, image tools, and productivity utilities behind a clean responsive interface.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Home page with featured utilities, service categories, and product positioning.
+- Services directory with quick access to every utility route.
+- Utility pages for JSON formatting, password generation, QR codes, UUIDs, age calculation, Markdown preview, color picking, Base64 conversion, text case conversion, URL encoding, unit conversion, math tools, stopwatch, and image resizing.
+- About and contact pages with polished product content.
+- Contact form integration through EmailJS.
+- Dark/light theme support with persisted preference.
+- Responsive UI built with Tailwind CSS, Base UI, and Lucide icons.
+- File-based routing with TanStack Router and automatic route code splitting.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- React 19
+- TypeScript 6
+- Vite 8
+- TanStack Router
+- Tailwind CSS 4
+- Base UI
+- Lucide React
+- EmailJS
+- React Toastify
+- React Markdown with remark-gfm
+- QRCode
 
-Note: This will impact Vite dev & build performances.
+## Getting Started
 
-## Expanding the ESLint configuration
+Install dependencies:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Start the development server:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+Run linting:
+
+```bash
+npm run lint
+```
+
+## Environment Variables
+
+The contact page uses EmailJS. Create a `.env.local` file in the project root and add:
+
+```env
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
+```
+
+If these values are missing, the contact form will show a configuration error instead of sending a message.
+
+## Project Structure
+
+```text
+src/
+  assets/              Static images and visual assets
+  components/          Shared layout, marketing, and UI components
+  components/ui/       Reusable UI primitives
+  lib/                 Shared utility helpers
+  routes/              TanStack Router route components
+  index.css            Global Tailwind styles and theme tokens
+  main.tsx             App entry point
+```
+
+## Main Routes
+
+- `/` - Home page
+- `/services` - Full utility directory
+- `/about` - Product and mission page
+- `/contact` - Contact and support form
+- `/json-formater` - JSON formatter
+- `/password-generator` - Password generator
+- `/qr-generator` - QR code generator
+- `/uuid-generator` - UUID generator
+- `/age-calculator` - Age calculator
+- `/markdown-previewer` - Markdown previewer
+- `/color-picker` - Color picker
+- `/base64-converter` - Base64 converter
+- `/text-case-converter` - Text case converter
+- `/url-encoder` - URL encoder and decoder
+- `/unit-converter` - Unit converter
+- `/math-tools` - Math tools
+- `/stopwatch` - Stopwatch
+- `/image-resizer` - Image resizer
+
+## Notes
+
+Most tools run directly in the browser, keeping common formatting, conversion, generation, and calculation workflows fast and lightweight. The app is private by default where possible, with no account requirement for using the utilities.
