@@ -27,7 +27,7 @@ type Service = {
   path: string
 }
 
-const services: Service[] = [
+export const services: Service[] = [
   {
     id: 'json-formatter',
     title: 'JSON Formatter',
