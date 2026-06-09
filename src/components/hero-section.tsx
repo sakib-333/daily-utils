@@ -2,6 +2,7 @@ import { ArrowRight, Sparkles } from "lucide-react"
 
 import heroImage from "@/assets/hero.png"
 import { Button } from "@/components/ui/button"
+import VisitorCounter from "@/components/visitor-counter"
 
 const HeroSection = () => {
     return (
@@ -58,6 +59,9 @@ const HeroSection = () => {
                         alt="Layered dashboard preview for Daily Utils"
                         className="relative h-[72%] w-auto object-contain drop-shadow-2xl"
                     />
+                    <div className="absolute right-4 top-4 sm:right-6 sm:top-6">
+                        <VisitorCounter />
+                    </div>
                     <div className="absolute bottom-4 left-4 right-4 grid grid-cols-3 gap-2 sm:bottom-6 sm:left-6 sm:right-6 sm:gap-3">
                         {["JSON", "Text", "Image"].map((tool) => (
                             <div
